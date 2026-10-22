@@ -36,8 +36,14 @@ Network `classification` distinguishes campaign destinations, specific paths
 on shared hosting, correlation-only markers and benign infrastructure context.
 Do not turn the entire array into a blocklist. Image tags are historical
 observations; compare the full index or platform manifest at the same level.
-Additional affected image variants are listed in the [timeline](timeline.md);
-incomplete published digest prefixes are deliberately not exact-hash entries.
+The supplemental catalog includes Wiz-reported `linux/amd64` and `linux/arm64`
+manifests for `ghcr.io/berriai/litellm-database` and
+`ghcr.io/berriai/litellm-non_root`. Their parent index identities are unknown;
+each entry carries its own repository and historical tag scope. Do not attach
+them to the general `litellm` index or infer Docker Hub counterparts.
+Incomplete index digest prefixes remain excluded from exact-hash entries.
+These four manifests were checked after the initial evidence cutoff; their
+earlier publication time was not established. [S14](references.md#s14)
 
 ## Correlation identifiers
 
@@ -143,3 +149,7 @@ patterns, network values, image digests, runtime context and correlation identif
 interpretations and references. `size_bytes: null` means unknown here, not
 zero. Do not silently change a hash to make tests pass. Verify new values
 against primary reports and independently acquired artifacts where possible.
+
+A platform manifest with a known `parent_index_id` must reference a recorded
+`image_index`. When the parent is unknown, omit that field and supply the
+manifest's own repository, historical tags, platform, source and interpretation.

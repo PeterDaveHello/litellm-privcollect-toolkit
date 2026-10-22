@@ -167,6 +167,38 @@ of observed post-exploitation activity at 19:05 UTC and a root-cause update
 at 21:45 UTC. The AWS activity is Wiz's observation, not activity reproduced
 by this toolkit or proof that every affected environment experienced it.
 
+The supplemental catalog also records four full platform manifests from its
+Affected Instances table. The page marks an IOC-table update at 14:05 UTC,
+but no historical snapshot establishes when these four rows were added.
+They are later source checks, not claims of independently retrieved registry
+provenance or confirmed availability before the initial cutoff. The page does
+not provide their parent index identities.
+
+## Supplemental source access record
+
+The following sources were accessed on **2026-10-22 UTC**, with this follow-up
+check completed at **12:51:48 UTC**, after the initial evidence cutoff.
+Earlier access times were not recorded. Page access and the publisher's
+revision metadata do not independently verify every claim or reconstruct a
+historical page version. Unknown revision times remain unknown.
+
+| Source | Access date (UTC) | Revision information available from the source |
+| --- | --- | --- |
+| [S1](#s1) | 2026-10-22 | An October 22 update is marked; no precise update time established |
+| [S2](#s2) | 2026-10-22 | October 21 publication date; exact content revision not established |
+| [S3](#s3) | 2026-10-22 | Publication shown as 2026-10-21 13:36:10.344 UTC; exact revision not established |
+| [S4](#s4) | 2026-10-22 | October 21 publication date; exact revision not established |
+| [S5](#s5) | 2026-10-22 | Exact article revision not established |
+| [S6](#s6) | 2026-10-22 | Final publication history entry: 2025-04-03 |
+| [S7](#s7) | 2026-10-22 | Page marks last modified 2025-10-21 |
+| [S8](#s8) | 2026-10-22 | Page marks last modified 2026-10-06 |
+| [S9](#s9) | 2026-10-22 | Incident statement revision marked 2026-10-21 20:30 UTC |
+| [S10](#s10) | 2026-10-22 | October 21 publication date; update section has no precise revision time |
+| [S11](#s11) | 2026-10-22 | Mutable issue body; a version at the initial cutoff was not captured |
+| [S12](#s12) | 2026-10-22 | API creation and update both 2026-10-21 12:57:19 UTC |
+| [S13](#s13) | 2026-10-22 | API creation and update both 2026-10-21 13:24:25 UTC |
+| [S14](#s14) | 2026-10-22 | Last listed article update: 2026-10-21 21:45 UTC; individual digest-row history unavailable |
+
 ## Tool documentation
 
 - [YARA rules](https://yara.readthedocs.io/en/stable/writingrules.html)

@@ -449,13 +449,41 @@ class ProjectTests(unittest.TestCase):
             self.assertRegex(item["value"], r"^sha256:[0-9a-f]{64}$")
             self.assertIn(item["kind"], ("image_index", "platform_manifest"))
             if item["kind"] == "platform_manifest":
-                self.assertEqual(images[item["parent_index_id"]]["kind"], "image_index")
                 self.assertIn(item["platform"], ("linux/amd64", "linux/arm64"))
-            else:
+                if "parent_index_id" in item:
+                    self.assertIsInstance(item["parent_index_id"], str)
+                    self.assertIn(item["parent_index_id"], images)
+                    self.assertEqual(images[item["parent_index_id"]]["kind"], "image_index")
+            if item["kind"] == "image_index" or "parent_index_id" not in item:
                 for key in ("repositories", "tags_at_observation"):
                     self.assertIsInstance(item[key], list)
                     self.assertTrue(item[key])
                     self.assertTrue(all(isinstance(value, str) and value for value in item[key]))
+
+    def test_wiz_manifests_have_independent_repository_scope(self):
+        catalog = scanner.load_catalog(scanner.CATALOG)
+        manifests = {item["id"]: item for item in catalog["container_images"] if "S14" in item["sources"]}
+        expected = {
+            "reported-database-manifest-linux-amd64": (
+                "litellm-database", "linux/amd64", "24581ddc30767f16ecb69d2b0517556f2cd7dea56971adb42a3d1beb97d69523"),
+            "reported-database-manifest-linux-arm64": (
+                "litellm-database", "linux/arm64", "827dd893c74cf621a860a66a3a447a5c732533f087589ce905573e285c0a239c"),
+            "reported-non-root-manifest-linux-amd64": (
+                "litellm-non_root", "linux/amd64", "645a67d810628252d63df85dcc8824c58bcc77cf8383f4d3e6321f0ccc3ce9e4"),
+            "reported-non-root-manifest-linux-arm64": (
+                "litellm-non_root", "linux/arm64", "f75c8edae59b72b1ebfd617295833f465c85bb2fab9c1d60f21b496db86cb8da"),
+        }
+        self.assertEqual(set(manifests), set(expected))
+        for key, (repository, platform, digest) in expected.items():
+            with self.subTest(indicator=key):
+                item = manifests[key]
+                self.assertEqual(item["kind"], "platform_manifest")
+                self.assertEqual(item["platform"], platform)
+                self.assertEqual(item["value"], "sha256:" + digest)
+                self.assertEqual(item["repositories"], ["ghcr.io/berriai/" + repository])
+                self.assertEqual(item["tags_at_observation"], ["v1.107.0"])
+                self.assertEqual(item["sources"], ["S14"])
+                self.assertNotIn("parent_index_id", item)
 
     def test_correlation_identifiers_are_separate_from_file_hashes(self):
         catalog = scanner.load_catalog(scanner.CATALOG)

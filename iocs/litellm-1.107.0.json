@@ -16,7 +16,8 @@
     "S5": "https://socket.dev/blog/litellm-compromise",
     "S9": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
     "S11": "https://github.com/BerriAI/litellm/issues/47826",
-    "S12": "https://github.com/BerriAI/litellm/issues/47826#issuecomment-6316601885"
+    "S12": "https://github.com/BerriAI/litellm/issues/47826#issuecomment-6316601885",
+    "S14": "https://www.wiz.io/blog/litellm-compromised-steals-credentials"
   },
   "file_hashes": [
     {
@@ -405,6 +406,46 @@
       "sources": [
         "S5"
       ]
+    },
+    {
+      "id": "reported-database-manifest-linux-amd64",
+      "kind": "platform_manifest",
+      "platform": "linux/amd64",
+      "value": "sha256:24581ddc30767f16ecb69d2b0517556f2cd7dea56971adb42a3d1beb97d69523",
+      "repositories": ["ghcr.io/berriai/litellm-database"],
+      "tags_at_observation": ["v1.107.0"],
+      "interpretation": "Wiz-reported platform manifest; parent index unknown. Added from a post-cutoff source check, not independent registry verification.",
+      "sources": ["S14"]
+    },
+    {
+      "id": "reported-database-manifest-linux-arm64",
+      "kind": "platform_manifest",
+      "platform": "linux/arm64",
+      "value": "sha256:827dd893c74cf621a860a66a3a447a5c732533f087589ce905573e285c0a239c",
+      "repositories": ["ghcr.io/berriai/litellm-database"],
+      "tags_at_observation": ["v1.107.0"],
+      "interpretation": "Wiz-reported platform manifest; parent index unknown. Added from a post-cutoff source check, not independent registry verification.",
+      "sources": ["S14"]
+    },
+    {
+      "id": "reported-non-root-manifest-linux-amd64",
+      "kind": "platform_manifest",
+      "platform": "linux/amd64",
+      "value": "sha256:645a67d810628252d63df85dcc8824c58bcc77cf8383f4d3e6321f0ccc3ce9e4",
+      "repositories": ["ghcr.io/berriai/litellm-non_root"],
+      "tags_at_observation": ["v1.107.0"],
+      "interpretation": "Wiz-reported platform manifest; parent index unknown. Added from a post-cutoff source check, not independent registry verification.",
+      "sources": ["S14"]
+    },
+    {
+      "id": "reported-non-root-manifest-linux-arm64",
+      "kind": "platform_manifest",
+      "platform": "linux/arm64",
+      "value": "sha256:f75c8edae59b72b1ebfd617295833f465c85bb2fab9c1d60f21b496db86cb8da",
+      "repositories": ["ghcr.io/berriai/litellm-non_root"],
+      "tags_at_observation": ["v1.107.0"],
+      "interpretation": "Wiz-reported platform manifest; parent index unknown. Added from a post-cutoff source check, not independent registry verification.",
+      "sources": ["S14"]
     }
   ],
   "correlation_indicators": [

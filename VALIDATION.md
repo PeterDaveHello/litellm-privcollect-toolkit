@@ -130,7 +130,7 @@ does not reproduce or supersede the different historical counts above.
 
 ## Offline checker and document checks
 
-The standard-library unittest suite currently contains 53 checks covering
+The standard-library unittest suite currently contains 54 checks covering
 catalog/source consistency, relative documentation links, renamed hash
 matches, unknown-size artifact behavior, basename-only observations, symlink
 and virtual-filesystem rejection, bounded/incomplete scans, read failures,
@@ -144,6 +144,8 @@ named modules. Subprocess checks cover stdout/stderr write and flush failures,
 including Linux `/dev/full`, and preserve normal exit codes for successful reports.
 Rule-validator checks cover snapshot reuse after source changes or removal,
 read/write failures, scan failures and temporary-file cleanup.
+Catalog checks retain known image-index relationships and check the transcribed
+repository/platform/digest mapping of the four Wiz-reported manifests.
 The corpus checks exercise archive-before-parse verification,
 selection completeness, member identities and limits, path/link rejection,
 empty-file accounting, temporary-file cleanup, fail-closed engine errors,

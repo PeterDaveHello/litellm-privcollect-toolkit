@@ -33,9 +33,19 @@ These are distribution windows, not execution cutoffs: cached packages,
 mirrors and previously pulled images can be installed or started later.
 The affected floating tags included `latest`, `main-latest` and `main-stable`.
 Additional GHCR variants were `litellm-database` and `litellm-non_root`;
-their published digest prefixes are not full identities. See the
-[catalog guide](ioc-guide.md) for index/platform distinctions.
-[S9](references.md#s9), [S5](references.md#s5)
+their maintainer-reported index digest prefixes are not full identities.
+The supplemental catalog adds Wiz-reported platform manifests for both
+variants; their parent indexes remain unknown. See the [catalog guide](ioc-guide.md)
+for index/platform distinctions and the later source-check boundary.
+[S9](references.md#s9), [S5](references.md#s5), [S14](references.md#s14)
+
+The S11 issue body checked on 2026-10-22 mentions a GitHub release publication
+time of 11:50:24 UTC in a struck-through passage. S13 retracts the inference
+that uploading to PyPI before publishing a GitHub release is itself anomalous.
+The passage's version at the initial cutoff was not established, so its exact
+release time is excluded from the timeline above. S12's 11:50:20 UTC Actions
+start is a different event. [S11](references.md#s11), [S12](references.md#s12),
+[S13](references.md#s13)
 
 JFrog separately observed an empty dead-drop body at its inspection time,
 while SafeDep and other reports describe later unavailability. Those

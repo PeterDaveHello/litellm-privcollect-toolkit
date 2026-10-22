@@ -2,6 +2,14 @@
 
 ## Unreleased — 2026-10-22
 
+### Supplemental evidence check
+
+- Add four Wiz-reported platform manifests with independent repository scope and unknown parent indexes.
+- Record actual source-access dates and available revision metadata after the initial evidence cutoff.
+- Explain why the mutable issue body's exact GitHub release time is excluded from the initial timeline.
+
+### Initial reference
+
 - Establish the LiteLLM PrivCollect scope: the October 2026 1.107.0 incident.
 - Add source-linked incident analysis, timeline, evidence map and response guidance.
 - Add a categorized IoC catalog and read-only offline file-indicator checker.
