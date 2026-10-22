@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "incident": {
+    "name": "LiteLLM PrivCollect",
+    "package": "litellm",
+    "affected_release": "1.107.0",
+    "event_date": "2026-10-21",
+    "research_cutoff": "2026-10-22",
+    "attribution": "Unassigned; not linked here to the March TeamPCP incident"
+  },
+  "sources": {
+    "S1": "https://research.jfrog.com/post/litellm-hijacked-again/",
+    "S2": "https://safedep.io/litellm-pypi-compromise-credential-stealer-backdoor/",
+    "S3": "https://opensourcemalware.com/blog/litellm-1-107-0-pypi-wheel-contains-a-credential-stealer-and-persistent-python-backdoor",
+    "S4": "https://aisle.com/blog/litellm-11070-on-pypi-shipped-a-credential-stealer",
+    "S5": "https://socket.dev/blog/litellm-compromise",
+    "S9": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+    "S11": "https://github.com/BerriAI/litellm/issues/47826",
+    "S12": "https://github.com/BerriAI/litellm/issues/47826#issuecomment-6316601885"
+  },
+  "file_hashes": [
+    {
+      "id": "raw-cook",
+      "name": "cook.py",
+      "sha256": "9dd0a3926f96a37eb86cf1ee2310d9be93139cc4ebef3ef9e2efe9531390be25",
+      "size_bytes": 22252,
+      "size_basis": "Measured from the published-hash-verified LF artifact.",
+      "kind": "implant",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S1",
+        "S3"
+      ]
+    },
+    {
+      "id": "raw-hook",
+      "name": "cook.pth",
+      "sha256": "7f191632e7320705d154b85204f1ae546b543acbd7e8861229b76f5042b92bdb",
+      "size_bytes": 12,
+      "size_basis": "Calculated from the LF import statement and confirmed against the published hash.",
+      "kind": "startup_hook",
+      "interpretation": "Matches the small import statement; requires module/environment context, not proof of malicious execution.",
+      "sources": [
+        "S2",
+        "S3"
+      ]
+    },
+    {
+      "id": "raw-loader",
+      "name": "sitecustomize.py",
+      "sha256": "34bef04fe88ac9d0aae0475630b1738681d15b94f233ac8aa46eacf5968305fa",
+      "size_bytes": 25509,
+      "size_basis": "Measured from the published-hash-verified LF artifact.",
+      "kind": "implant",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S1",
+        "S3"
+      ]
+    },
+    {
+      "id": "raw-cook-windows",
+      "name": "cook.py",
+      "sha256": "03ac2a8b752605d1d7710979c17ff18b03dd978203ba23ba97fd8ce3d6f897ea",
+      "size_bytes": 22253,
+      "size_basis": "LF-to-CRLF conversion matches the published Windows hash; not independent Windows-wheel acquisition.",
+      "kind": "implant",
+      "interpretation": "Known Windows CRLF artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S5"
+      ]
+    },
+    {
+      "id": "raw-hook-windows",
+      "name": "cook.pth",
+      "sha256": "84dc8c82c0a4a4a62552ef826b49fcc86d1a5c4a5d0f2c06665723f93d129d7d",
+      "size_bytes": 13,
+      "size_basis": "CRLF import statement matches the published Windows hash.",
+      "kind": "startup_hook",
+      "interpretation": "Matches the small CRLF import statement; requires module/environment context, not proof of malicious execution.",
+      "sources": [
+        "S2",
+        "S5"
+      ]
+    },
+    {
+      "id": "raw-loader-windows",
+      "name": "sitecustomize.py",
+      "sha256": "b6122440d0d9cb1eb1ade9933f49214da8c31288de7710c076c2680dfa528465",
+      "size_bytes": 25656,
+      "size_basis": "LF-to-CRLF conversion matches the published Windows hash; not independent Windows-wheel acquisition.",
+      "kind": "implant",
+      "interpretation": "Known Windows CRLF artifact identity; presence does not prove the fork-based loader ran on Windows.",
+      "sources": [
+        "S2",
+        "S5"
+      ]
+    },
+    {
+      "id": "decoded-cook",
+      "name": "cook.decoded.txt",
+      "sha256": "6ea3d8ef6cf73a72d8df24f663b7a31ce67494eeb9b0d707b93484e66675d2df",
+      "size_bytes": 61000,
+      "size_basis": "Measured after bounded static decoding and verification of the published decoded hash.",
+      "kind": "decoded_payload",
+      "interpretation": "Identity of a statically decoded public payload; the checker does not decode or execute files.",
+      "sources": [
+        "S3"
+      ]
+    },
+    {
+      "id": "decoded-loader",
+      "name": "sitecustomize.decoded.txt",
+      "sha256": "20a59e5a285799e7cf7fa16cfba1c1414f1e84a8459e14207cfd4e998c2cd24b",
+      "size_bytes": 60967,
+      "size_basis": "Measured after bounded static decoding and verification of the published decoded hash.",
+      "kind": "decoded_payload",
+      "interpretation": "Identity of a statically decoded public payload; the checker does not decode or execute files.",
+      "sources": [
+        "S3"
+      ]
+    },
+    {
+      "id": "wheel-linux-x64",
+      "name": "litellm-1.107.0-cp310-abi3-manylinux_2_28_x86_64.whl",
+      "sha256": "462d0c9f67ca522d9e0e4acd245e90b36ce0d5353604a66bb7c43a1ec4a6fcf7",
+      "size_bytes": null,
+      "kind": "affected_wheel",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S4"
+      ]
+    },
+    {
+      "id": "wheel-linux-arm64",
+      "name": "litellm-1.107.0-cp310-abi3-manylinux_2_28_aarch64.whl",
+      "sha256": "668169d35b87bf51324080390b1b1c5ab12bd335cfe5f1a99e3689abd5e02ae6",
+      "size_bytes": null,
+      "kind": "affected_wheel",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S4"
+      ]
+    },
+    {
+      "id": "wheel-musl-x64",
+      "name": "litellm-1.107.0-cp310-abi3-musllinux_1_2_x86_64.whl",
+      "sha256": "1bbce8caa94f01c0aaa0b7ddae51553a8a32e1ce53d96d44fe583272aff7ad00",
+      "size_bytes": null,
+      "kind": "affected_wheel",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S4"
+      ]
+    },
+    {
+      "id": "wheel-musl-arm64",
+      "name": "litellm-1.107.0-cp310-abi3-musllinux_1_2_aarch64.whl",
+      "sha256": "c2e32d0ce2548aa662c18bf5001911a79fe5b30cf8357132275add02fdcde054",
+      "size_bytes": null,
+      "kind": "affected_wheel",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S4"
+      ]
+    },
+    {
+      "id": "wheel-macos-x64",
+      "name": "litellm-1.107.0-cp310-abi3-macosx_10_12_x86_64.whl",
+      "sha256": "7598727f209d717041db37f7dca271d3a7d328a279890e0e1d55375729aeb86d",
+      "size_bytes": 38106866,
+      "kind": "affected_wheel",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S3",
+        "S4"
+      ]
+    },
+    {
+      "id": "wheel-macos-arm64",
+      "name": "litellm-1.107.0-cp310-abi3-macosx_11_0_arm64.whl",
+      "sha256": "0aaf7ba346d41ef2f40390436738b001180d5a1c03aa093f121078a9969d9a1a",
+      "size_bytes": null,
+      "kind": "affected_wheel",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S4"
+      ]
+    },
+    {
+      "id": "wheel-windows-x64",
+      "name": "litellm-1.107.0-cp310-abi3-win_amd64.whl",
+      "sha256": "12d4ccc5c6f8d35cf4f2cf233b7f3e418e863e657d81ff5f5fc9e210005b9484",
+      "size_bytes": null,
+      "kind": "affected_wheel",
+      "interpretation": "Known affected artifact identity; content presence does not prove execution.",
+      "sources": [
+        "S2",
+        "S4"
+      ]
+    },
+    {
+      "id": "release-sdist",
+      "name": "litellm-1.107.0.tar.gz",
+      "sha256": "2befe2a79fb4fbbd9a543b5b40b530c8cffa8771bab22b8fb22b2e4ae3b1f819",
+      "size_bytes": null,
+      "kind": "release_reference",
+      "interpretation": "Release source-archive identity; the three implant files are absent but build configuration differs. Neither a payload verdict nor approval to build/install.",
+      "sources": [
+        "S2",
+        "S4"
+      ]
+    }
+  ],
+  "host_artifacts": [
+    {
+      "id": "hook-name",
+      "basename_pattern": "cook.pth",
+      "interpretation": "Startup-hook filename; inspect target module and hash.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "collector-name",
+      "basename_pattern": "cook.py",
+      "interpretation": "Candidate filename; not sufficient without content/context.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "loader-name",
+      "basename_pattern": "sitecustomize.py",
+      "interpretation": "Common legitimate Python customization filename; never remove by name alone.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "collector-bytecode-name",
+      "basename_pattern": "cook.*pyc",
+      "interpretation": "Candidate cached or legacy bytecode; inspect environment path and content, never delete by name alone.",
+      "sources": [
+        "S9",
+        "S11"
+      ]
+    },
+    {
+      "id": "loader-bytecode-name",
+      "basename_pattern": "sitecustomize.*pyc",
+      "interpretation": "Candidate cached or legacy bytecode; common customization name, not proof of persistence or execution.",
+      "sources": [
+        "S9",
+        "S11"
+      ]
+    },
+    {
+      "id": "upload-marker",
+      "basename_pattern": ".pc_once_72129118c59f5636c0bb",
+      "interpretation": "Reported path /tmp/.pc_once_72129118c59f5636c0bb; corroborated presence supports POST-success branch, not the stolen-file list.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "loader-lock",
+      "basename_pattern": "remote_code_loader.lock",
+      "interpretation": "Reported path /tmp/remote_code_loader.lock; a file alone does not identify a live lock holder.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "sqlite-temp",
+      "basename_pattern": ".pc_sq_*",
+      "interpretation": "Reported temporary-directory prefix under /tmp; low-specificity observation.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "crypto-temp",
+      "basename_pattern": ".pc_e_*",
+      "interpretation": "Reported temporary-directory prefix under /tmp; low-specificity observation.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    }
+  ],
+  "network": [
+    {
+      "id": "upload-domain",
+      "kind": "domain",
+      "classification": "campaign_destination",
+      "value": "www.litellm.dev",
+      "interpretation": "Campaign upload domain; not the legitimate litellm.ai domain.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "upload-url",
+      "kind": "url",
+      "classification": "campaign_destination",
+      "value": "http://www.litellm.dev/healthcheck",
+      "interpretation": "Encrypted data POST destination; do not fetch.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "locator-url",
+      "kind": "url",
+      "value": "https://raw.githubusercontent.com/letters9813/pythonclient-test/main/domain.txt",
+      "classification": "specific_shared_host_resource",
+      "interpretation": "Specific dead-drop resource; do not block all shared GitHub raw hosting.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "stage-path",
+      "kind": "url_path",
+      "classification": "correlation_only",
+      "value": "/codepy",
+      "interpretation": "Path on a dynamic domain; not a complete, independently blockable URL.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "upload-header",
+      "kind": "http_header",
+      "classification": "correlation_only",
+      "value": "X-Token: XWiA8gZNa7NcX2XRoAEb",
+      "interpretation": "Published attacker-side marker, not a victim credential; never use for a request.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "metadata-context",
+      "kind": "context_address",
+      "classification": "benign_infrastructure_context",
+      "value": "169.254.169.254",
+      "interpretation": "Legitimate cloud metadata address; requests alone are not campaign-specific proof.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    }
+  ],
+  "container_images": [
+    {
+      "id": "reported-image-digest",
+      "kind": "image_index",
+      "value": "sha256:1bbcb1443bc962e45f5aad53fe3d2c30600e0379715fb6c664cdd3ac126c339e",
+      "repositories": ["ghcr.io/berriai/litellm", "docker.io/litellm/litellm"],
+      "tags_at_observation": ["v1.107.0", "latest", "main-latest", "main-stable"],
+      "interpretation": "Reported affected multi-platform index; compare index to index, not to a platform manifest. Historical tags are not independently revalidated here.",
+      "sources": [
+        "S1",
+        "S5",
+        "S9"
+      ]
+    },
+    {
+      "id": "reported-manifest-linux-amd64",
+      "kind": "platform_manifest",
+      "platform": "linux/amd64",
+      "value": "sha256:bd1aeee419ea36da9aa2b657288da4101887be468f020ac63d22ba6ed84a3ea5",
+      "parent_index_id": "reported-image-digest",
+      "interpretation": "Socket-reported platform manifest; not interchangeable with the parent index digest.",
+      "sources": [
+        "S5"
+      ]
+    },
+    {
+      "id": "reported-manifest-linux-arm64",
+      "kind": "platform_manifest",
+      "platform": "linux/arm64",
+      "value": "sha256:56b74573eed6e4aafe4b50603dbe7853e0345f188c8e44a09f1098caf1f4bcdf",
+      "parent_index_id": "reported-image-digest",
+      "interpretation": "Socket-reported platform manifest; not interchangeable with the parent index digest.",
+      "sources": [
+        "S5"
+      ]
+    }
+  ],
+  "correlation_indicators": [
+    {
+      "id": "reported-source-repository",
+      "kind": "source_repository",
+      "value": "https://github.com/Berri-AI/litellm",
+      "interpretation": "Reported container source; the hyphenated owner differs from BerriAI. Correlation only; do not fetch.",
+      "sources": ["S12", "S5"]
+    },
+    {
+      "id": "reported-source-revision",
+      "kind": "git_commit",
+      "value": "20535d8fa11f786a6c24df7488a0e449ed5f09ad",
+      "repository_id": "reported-source-repository",
+      "interpretation": "Full Git revision reported in container provenance; not a file SHA-256 or proof of victim execution.",
+      "sources": ["S12", "S5"]
+    },
+    {
+      "id": "reported-release-workflow-run",
+      "kind": "workflow_run",
+      "value": "39587059944",
+      "repository": "BerriAI/project-releaser",
+      "url": "https://github.com/BerriAI/project-releaser/actions/runs/39587059944",
+      "interpretation": "Reported builder identity for correlation with retained release records; availability and authorization are not independently established here.",
+      "sources": ["S12", "S5"]
+    },
+    {
+      "id": "reported-collector-rsa-spki",
+      "kind": "rsa_spki_sha256",
+      "value": "a898fd08ad220fed52488906eb45d196f332b972ad5d85214e7726545ecc4218",
+      "key_bits": 4096,
+      "interpretation": "SHA-256 of DER-encoded SubjectPublicKeyInfo for the reported collector public key; not a file hash, private key or attribution proof.",
+      "sources": ["S12", "S5"]
+    }
+  ],
+  "runtime_indicators": [
+    {
+      "id": "collector-environment-guard",
+      "kind": "environment_marker",
+      "value": "PRIVCOLLECT_ACTIVE=1",
+      "interpretation": "Collector duplicate-run guard; inherited or manually set values do not prove upload. Do not dump complete process environments.",
+      "sources": [
+        "S2",
+        "S5"
+      ]
+    },
+    {
+      "id": "detached-loader-traits",
+      "kind": "process_traits",
+      "value": "Python process; detached session; cwd /; possible parent PID 1; lock holder of /tmp/remote_code_loader.lock",
+      "interpretation": "Correlate the lock holder with PID/start identity and executable. Generic daemon traits alone are not malware evidence; parent PID may vary with subreapers.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    }
+  ]
+}

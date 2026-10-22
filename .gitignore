@@ -1,0 +1,12 @@
+__pycache__/
+.ruff_cache/
+*.py[cod]
+.env
+.env.*
+/evidence/
+/reports/
+/dist/
+*.evidence
+*.pcap
+*.pcapng
+*.core
