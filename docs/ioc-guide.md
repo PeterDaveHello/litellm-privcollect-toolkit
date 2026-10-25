@@ -19,6 +19,7 @@ not treated as independently actionable indicators.
 | Container index / platform manifest | Source-reported image identity at a specific level | A local platform manifest digest need not equal its parent index digest |
 | Runtime marker / process traits | Corroborating live-response context | Not checked by the file scanner and not standalone infection evidence |
 | Source / workflow / public-key identifier | Cross-reference release evidence or static payload analysis | Not a file hash, network blocklist entry or attribution proof |
+| Publisher-side IP / URL / branch / revision | Correlate upstream account and CI activity | Scoped to a reported service/repository and UTC date, not downstream payload detection |
 
 The catalog includes LF and Windows CRLF payload identities. `size_basis`
 distinguishes measured or statically derived sizes from publisher-reported
@@ -56,12 +57,83 @@ The `correlation_indicators` group keeps different identity types separate:
 | `workflow_run` | `BerriAI/project-releaser` run `39587059944` | Reported builder run; an identifier does not imply that its records remain publicly accessible |
 | `rsa_spki_sha256` | `a898fd08ad220fed52488906eb45d196f332b972ad5d85214e7726545ecc4218` | SHA-256 of DER-encoded SubjectPublicKeyInfo for the embedded RSA-4096 public key, not a payload-file hash |
 
-These values were published in the unchanged 2026-10-21 12:57:19 UTC
+The four identifiers above were published in the unchanged 2026-10-21 12:57:19 UTC
 follow-up comment. Correlate them with the appropriate evidence type; none
 alone establishes an operator identity, victim execution or successful data
 theft. The toolkit does not retrieve workflow records, clone the reported
 repository or extract keys from arbitrary files. [S12](references.md#s12),
 [S5](references.md#s5)
+
+### Publisher-side investigation context
+
+Six additional indicators describe the upstream activity reported in S15.
+Their `scope` is `publisher-side`; `observed_date` is the reported event's UTC
+date, not this toolkit's acquisition time. They were added after the initial
+evidence cutoff; source access was on October 25. The catalog's
+`incident.research_cutoff` retains the initial historical boundary, not a
+cutoff for these later additions. [S15](references.md#s15)
+
+| Indicator | Reported scope and date | Role |
+| --- | --- | --- |
+| `69.48.229[.]143` | Agent Platform API, 2026-10-10 | Source of authenticated requests using the exposed master key |
+| `199.91.221[.]39` | `BerriAI/project-releaser`, 2026-10-21 | Source of repository pushes and gate approval |
+| `ci-tmp-a351cc` | `BerriAI/litellm`, 2026-10-10 | Temporary secret-exfiltration workflow branch |
+| `ci-tmp-be33e9` | `BerriAI/litellm-auto`, 2026-10-10 | Second temporary secret-exfiltration workflow branch |
+| `9cf97e935aeaf791b9c8db224a2bb3ee156134ce` | `BerriAI/project-releaser`, 2026-10-21 | Workflow change allowing the fork source |
+| `285fbdc5` | `BerriAI/project-releaser`, 2026-10-21 | Attacker revert before history concealment |
+
+The IPs use `classification: "correlation_only"` and `role: "request_source"`.
+They are not established downstream upload or C2 destinations. Correlate
+them with service, identity, action and time; neither a lone hit nor a lack
+of hits establishes a downstream host's status. Do not use them as a permanent
+blocklist or move consumer exposure back to the publisher's earlier compromise.
+
+The workflow-change entry uses S9's published full revision, consistent with
+S15's `9cf97e9` prefix. The revert uses `git_commit_prefix`: an abbreviated,
+repository-scoped revision whose missing characters have not been inferred.
+These are source-reported identifiers, not independently retrieved commit
+objects. The existing full fork-source revision is retained without a
+duplicate shortened entry. The pre-change revision is not labeled malicious
+merely because the attacker force-pushed back to it.
+[S9](references.md#s9), [S15](references.md#s15)
+
+Shared hosting such as `webhook.site`, ordinary secret names and
+`opencode.json` are not standalone campaign indicators. The file scanner and
+existing YARA rules do not check these publisher-side events.
+
+### Socket workflow evidence
+
+S16 contributes five further publisher-side records and corroborates the
+existing `ci-tmp-a351cc` branch without duplicating it. All five new records
+refer to `BerriAI/litellm`; the October 12 branch is distinct from the
+October 10 `BerriAI/litellm-auto` branch. Together with the six records above,
+the catalog contains eleven publisher-side indicators. [S16](references.md#s16)
+
+| Reported UTC date | Indicator | Role |
+| --- | --- | --- |
+| 2026-10-10 | `hxxps://webhook[.]site/65a42464-3cfa-4b02-a18c-17a6d7b86f37` | Destination embedded in the first workflow |
+| 2026-10-12 | `hxxps://webhook[.]site/4da03473-a3e7-4dc2-a087-9c564b4208e1` | Different destination embedded in the second workflow |
+| 2026-10-10 | `b69bc36fd4e23b23ea09f4ce63a92b07258f5044` | Full Git revision of the first workflow |
+| 2026-10-12 | `1a6e3c1e41f1b5c8eeaeeb2ae94bcd95390fa891` | Full Git revision of the second workflow |
+| 2026-10-12 | `ci-tmp-4d8517` | Temporary branch and retained deployment ref |
+
+The URLs use `specific_shared_host_resource` and
+`role: "exfiltration_destination"`, unlike the official report's request-source
+IPs. Their dates identify the reported workflow activity; they are not
+independent observations that the destination received secrets. These are CI
+destinations, not the downstream PrivCollect upload endpoint. The URLs were
+also checked directly in S17 and S18. Workflow revision entries use `branch_id`
+to link to the reported branch; that relationship comes from Socket's activity
+evidence, not from source contents alone. Source access was on October 25,
+after the initial evidence cutoff. [S16](references.md#s16),
+[S17](references.md#s17), [S18](references.md#s18)
+
+The workflow path `.github/workflows/cache.yml`, runner paths `/tmp/c.env`
+and `/tmp/c.b64`, and `X-Tag` headers can supplement investigation of the
+identified commits/runs. Their generic names are not added to file-name
+detection or treated as standalone malware evidence. Static inspection did
+not execute or redistribute the workflows, and no new file-detection hashes
+or YARA rules were added.
 
 ## Usage
 

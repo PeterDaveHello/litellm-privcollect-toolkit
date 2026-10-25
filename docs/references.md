@@ -63,7 +63,7 @@ and AI Credentials** (2026-10-21).
 Primary investigation reporting retrieved container provenance and the
 hyphenated source owner `Berri-AI`, its full revision, builder run,
 platform manifests, RSA-4096 public-key fingerprint and runtime caveats.
-See S9 for the later maintainer account of the release-workflow compromise.
+See [S15](#s15) for the completed maintainer reconstruction of the release-workflow compromise.
 This toolkit has not independently reproduced the registry-provenance audit.
 
 ## S6
@@ -103,6 +103,11 @@ Compromised** (2026-10-21; revision marked 20:30 UTC).
 
 Maintainer account of release compromise, removal times and remaining uncertainty.
 Containment of distribution does not certify downstream recovery.
+Its initial response-log token-theft hypothesis is superseded by S15, not a
+current alternative explanation. Retained for investigation history.
+Its full workflow-change revision is also retained for correlation where
+consistent with S15's abbreviated identifier; this is not independent
+retrieval of the private repository's commit object.
 
 ## S10
 
@@ -173,6 +178,113 @@ but no historical snapshot establishes when these four rows were added.
 They are later source checks, not claims of independently retrieved registry
 provenance or confirmed availability before the initial cutoff. The page does
 not provide their parent index identities.
+
+## S15
+
+**LiteLLM maintainers — The attack chain behind the v1.107.0 LiteLLM release**
+(2026-10-23 21:00 UTC, as stated in the report and publication metadata).
+
+<https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain>
+
+The completed official investigation supersedes conflicting earlier status
+updates, including S9's initial-access hypothesis. It identifies Agent
+Platform API token exposure, subsequent CI credential theft and attacker-led
+history removal. These are publisher findings, not independent reproduction
+by this toolkit.
+The catalog's six publisher-side additions use this source for their event
+scope and dates; the workflow-change commit also cites S9 for its full SHA.
+
+Accessed **2026-10-25 UTC**, after the initial evidence cutoff. S9 was also
+rechecked: its October 23 21:50 UTC notice preserves the earlier text as
+history and directs readers to S15. No exact revision time for S15's current
+body was established. The October 22 access record below remains historical;
+the [dated correction](../CHANGELOG.md#unreleased--2026-10-25) does not rewrite
+what was known at that cutoff.
+
+## S16
+
+**Socket, Karlo Zanki — New Evidence Shows LiteLLM Secret-Stealing Workflows
+Ran 11 Days Before Supply Chain Attack** (2026-10-23).
+
+<https://socket.dev/blog/litellm-attack-timeline>
+
+Follow-up research reporting two recovered CI workflows, repository activity,
+Actions performance metrics and environment deployment records. It supplies
+two dated webhook resource URLs, full workflow revisions and the October 12
+branch. This differs from S5's package/container analysis. The toolkit's
+static inspection of the workflow sources is recorded in S17 and S18;
+execution records and underlying telemetry remain source-reported.
+
+Socket's limits on independently establishing initial access and subsequent
+credential use do not supersede S15's completed maintainer investigation.
+Workflow success is not proof of data delivery: the reported commands mask
+transmission failures. The precise dated URLs are attributed to S16; S15's
+broader endpoint wording does not independently verify these exact resources.
+
+Accessed **2026-10-25 UTC**. The site's publication metadata is
+**2026-10-23 21:00:31.470 UTC**; its `article:modified_time` is
+**2026-10-23 21:12:21 UTC**. These publisher-supplied fields do not reconstruct
+the content of historical page revisions. This is a post-cutoff addition,
+not an October 22 observation.
+
+## S17
+
+**BerriAI/litellm — `.github/workflows/cache.yml` at
+`b69bc36fd4e23b23ea09f4ce63a92b07258f5044`**.
+
+<https://github.com/BerriAI/litellm/blob/b69bc36fd4e23b23ea09f4ce63a92b07258f5044/.github/workflows/cache.yml>
+
+Fixed-revision source retrieved through GitHub's raw-file endpoint and
+statically inspected on **2026-10-25 UTC**: one job, six distinct secret
+references, the October 10 webhook resource, and a curl command ending in
+`|| true`. This confirms source contents, not branch history, execution or
+receipt. S16 supplies the branch/date and execution evidence.
+
+## S18
+
+**BerriAI/litellm — `.github/workflows/cache.yml` at
+`1a6e3c1e41f1b5c8eeaeeb2ae94bcd95390fa891`**.
+
+<https://github.com/BerriAI/litellm/blob/1a6e3c1e41f1b5c8eeaeeb2ae94bcd95390fa891/.github/workflows/cache.yml>
+
+Fixed-revision source retrieved and statically inspected on **2026-10-25 UTC**:
+six jobs, five explicit Environment bindings and fourteen distinct secret
+names absent from S17. All six curl commands use the October 12 webhook
+resource and suppress failures. Same-named references across Environments do
+not establish equal values. No workflow was executed; source inspection does
+not independently reproduce S16's run/deployment records or S15's audit findings.
+
+## S19
+
+**GitHub Docs — Managing private keys for GitHub Apps**.
+
+<https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/managing-private-keys-for-github-apps>
+
+Accessed **2026-10-25 UTC**. Documents JWT signing, manual revocation and the
+absence of automatic private-key expiry. Used for response guidance, not as
+evidence that the attacker used a particular App key.
+
+## S20
+
+**Playwright — Authentication**.
+
+<https://playwright.dev/docs/auth>
+
+Accessed **2026-10-25 UTC**. Explains that saved browser state can contain
+cookies and headers usable for account impersonation. It supports treating
+exposed state as authentication material, not a claim that this incident's
+specific sessions remained valid or were used.
+
+## S21
+
+**GitHub Docs — Workflow syntax for GitHub Actions: permissions**.
+
+<https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions>
+
+Accessed **2026-10-25 UTC**. Defines `permissions` as control of `GITHUB_TOKEN`
+access. It does not establish the privileges or exposure of separately supplied
+credentials in a particular workflow. Platform documentation is current
+guidance; precise revision times for S19–S21 were not established.
 
 ## Supplemental source access record
 

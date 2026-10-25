@@ -130,7 +130,10 @@ does not reproduce or supersede the different historical counts above.
 
 ## Offline checker and document checks
 
-The standard-library unittest suite currently contains 54 checks covering
+The current catalog and document checks passed on **2026-10-25 UTC**.
+The rule/sample and corpus observations above retain their separately stated dates.
+
+The standard-library unittest suite currently contains 57 checks covering
 catalog/source consistency, relative documentation links, renamed hash
 matches, unknown-size artifact behavior, basename-only observations, symlink
 and virtual-filesystem rejection, bounded/incomplete scans, read failures,
@@ -146,6 +149,15 @@ Rule-validator checks cover snapshot reuse after source changes or removal,
 read/write failures, scan failures and temporary-file cleanup.
 Catalog checks retain known image-index relationships and check the transcribed
 repository/platform/digest mapping of the four Wiz-reported manifests.
+Publisher-side checks preserve the original correlation identifiers by unique
+ID when multiple entries share a kind, and verify request-source versus
+exfiltration-destination roles, UTC dates, repositories, full versus abbreviated
+Git revisions, source-file corroboration and repository/date-consistent
+revision-to-branch links without duplicate branches.
+An inert scan checks all eleven publisher-side values as content and, where
+valid as basenames, as filenames; URLs use neutral fixture names. Neither
+default nor `--hash-all` mode should produce file observations. These checks
+validate catalog transcription and scope, not the publishers' private records.
 The corpus checks exercise archive-before-parse verification,
 selection completeness, member identities and limits, path/link rejection,
 empty-file accounting, temporary-file cleanup, fail-closed engine errors,
@@ -157,6 +169,23 @@ Optional sample tests also verify the two LF-to-CRLF transformations against
 the catalog's published Windows hashes and measured sizes, plus decoded
 payload sizes. The default checkout reproduces 30 inert cases per engine;
 the 13 additional cases require separately acquired, hash-verified samples.
+
+## Static workflow-source inspection
+
+On 2026-10-25 UTC, the two fixed-revision workflow files in
+[S17](docs/references.md#s17) and [S18](docs/references.md#s18) were retrieved
+as bounded text and inspected without execution. Their input identities were:
+
+| Source | Bytes | SHA-256 of retrieved workflow source |
+| --- | --- | --- |
+| S17 | 985 | `5cde4ebd67bee35063931c04f71c23c1c518458dca8e8bf251720543d71a73f7` |
+| S18 | 4061 | `557c3488ddc97bd52542d304cb0cae5ddd1bba47a92a57c36b9a857d5a3bd2b5` |
+
+Inspection confirmed the job/Environment structure, secret-name references,
+destinations and curl failure masking described in the incident report.
+These checksums identify analysis inputs, not new file-detection signatures.
+The full workflows are not distributed here. This was not a CI execution,
+secret-value inspection, or reproduction of private run/audit records.
 
 ## Remaining limitations
 

@@ -68,6 +68,64 @@ calls can also be legitimate; the report does not establish that every
 affected environment experienced them or that paid model inference occurred.
 [S14](references.md#s14)
 
+### Publisher-side agent and CI investigation
+
+The corrected chain starts with Agent Platform API access and an
+agent-configuration response, followed by CI credential theft. Begin the
+documented publisher activity review at October 10 and assess earlier key
+exposure separately. These dates are not a downstream consumer's infection
+window. [S15](references.md#s15)
+
+For the affected publisher or an analogous agent/release deployment:
+
+- Trace each exposed credential's privileges, accessible secrets and
+  subsequent identities. Correlate Agent Platform API access with GitHub
+  audit and CI records; do not limit initial-access investigation to
+  inference response logs. Retain secret names and provider-issued token
+  identifiers or audit-log hashes where available, without publishing token
+  values or unredacted API responses.
+- Correlate temporary-branch workflows, outbound requests, environment
+  deployments, release approvals, protection overrides, run deletions and
+  force-pushes by repository, credential identity, source and time. An account
+  name alone does not distinguish its owner from someone using a stolen token.
+- Preserve organization audit records separately from deletable workflow
+  logs. Review retained events even when the current branch appears normal;
+  a revert or force-push does not establish authorized recovery.
+- Use the catalog's [publisher-side indicators](ioc-guide.md#publisher-side-investigation-context)
+  within their reported scope. The shared `webhook.site` hostname alone is
+  insufficient for a campaign-specific verdict or blanket blocking rule.
+
+These are recommendations derived from the reported chain, not evidence
+that every affected package consumer suffered the same account compromise.
+The offline file scanner does not inspect these audit records.
+[S15](references.md#s15)
+
+Socket's follow-up provides concrete checks for this publisher-side review:
+
+- Check Actions performance metrics and retained environment deployments as
+  well as workflow logs. In Socket's investigation these records helped
+  reconstruct runs after temporary branches and workflow files disappeared.
+  Availability depends on access and retention; preserve what remains.
+  Absence from `main` does not exclude a run on a temporary branch. A retained
+  deployment labeled `Active` is not evidence of a still-running malicious
+  process; obtain runtime evidence separately.
+- Correlate the [dated webhook resources and workflow revisions](ioc-guide.md#socket-workflow-evidence)
+  with outbound-request evidence. A green job is neither a clean verdict nor
+  proof of delivery: the reported workflow's `|| true` masks transfer errors.
+- Treat referenced secret names as collection targets until corroborated.
+  Include GitHub App signing keys and test browser-session state in the
+  exposure inventory; those credential classes are explicitly targeted in
+  the recovered workflows. Do not print their values while investigating.
+- Check credentials supplied separately to jobs even when the workflow has
+  `permissions: {}`. That setting controls `GITHUB_TOKEN` permissions; it does
+  not revoke the separate tokens or keys referenced through `secrets.*`.
+  The inspected workflows use both constructs. [S17](references.md#s17),
+  [S18](references.md#s18), [S21](references.md#s21)
+
+These recommendations use Socket's reported evidence, not independent
+inspection of the affected organization's private records.
+[S16](references.md#s16)
+
 ## 4. Contain and recover deliberately
 
 After preserving necessary evidence, remove or quarantine **confirmed**
@@ -89,6 +147,30 @@ review the service's actual privileges and database access. Also assess
 instance/task role sessions and developer-tool OAuth sessions. This is a
 precautionary scope, not proof that every listed secret was collected.
 [S11](references.md#s11), [S5](references.md#s5)
+
+For that publisher-side chain, revoke the exposed Agent Platform master key
+and copied GitHub CLI OAuth credentials, including the maintainer tokens
+stored as `GH_TOKEN` and `RELEASE_PLEASE_TOKEN` in CI. Then assess
+and revoke or rotate other exposed repository/environment secrets and
+credentials obtained through them; review new grants and sessions as well.
+Replacing the master key alone does not invalidate a GitHub token already
+copied from an API response, and removing a secret from Git history does not
+revoke it. Confirm revocation through the issuing provider before resuming
+release access. Scope this work from the affected service's actual access,
+not from a blanket assumption that all consumer deployments share this exposure.
+[S15](references.md#s15)
+
+Revoke exposed GitHub App signing keys through GitHub's key-management
+controls, replacing active keys as needed, and assess the installations and
+tokens they could authorize. App private keys do not expire automatically;
+waiting for a short-lived token to expire is insufficient. [S19](references.md#s19)
+
+Assess exposed test browser state, including `E2E_LINEAR_STORAGE_STATE_B64`,
+for reusable cookies and other authentication data. Use the service's
+server-side session controls to invalidate exposed sessions; deleting the
+test file alone does not revoke a copied session. The workflows establish
+these as targets, not that every referenced value was present or received.
+[S17](references.md#s17), [S18](references.md#s18), [S20](references.md#s20)
 
 Where immediate replacement is impractical, document a time-limited residual-
 risk decision, restrict sensitive use, apply proportionate access/egress

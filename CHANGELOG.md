@@ -1,5 +1,26 @@
 # Change log
 
+## Unreleased — 2026-10-26
+
+### Socket CI evidence follow-up
+
+- Add S16's two dated webhook resources, two complete workflow revisions and October 12 branch; corroborate the existing October 10 branch without duplication.
+- Distinguish workflow execution, targeted secrets and confirmed delivery; retain the current official root-cause account alongside Socket's separate evidence limits.
+- Add investigation guidance for retained metrics/deployments, GitHub App signing keys and browser sessions, with source-scoped catalog and scanner-boundary tests.
+- Statically inspect both fixed-revision workflows, distinguish source properties from reported execution and private audit findings, and retain the official limit on October 12 credentials' role.
+- Clarify secret-name counts, deployment `Active` labels and `GITHUB_TOKEN` permissions; cite platform documentation for App-key revocation and browser-session handling.
+
+## Unreleased — 2026-10-25
+
+### Corrected publisher-side attack chain
+
+- Adopt the October 23 official investigation as the current account where earlier maintainer statements conflict.
+- Replace the earlier response-log token-theft hypothesis and unresolved-initial-access wording with the Agent Platform API account; retain the old hypothesis only as superseded history.
+- Correct the workflow "restoration" entry to identify attacker-led history removal, not defender-led recovery.
+- Update investigation and credential-revocation guidance to follow the corrected chain, without extending upstream exposure dates to downstream consumers.
+- Add six scoped publisher-side correlation indicators and checks for their source, date, role and repository; preserve file-scanner and YARA detection coverage.
+- Record actual post-cutoff source access, retain complete Git identities where published, and test that repeated indicator kinds do not hide existing entries.
+
 ## Unreleased — 2026-10-22
 
 ### Supplemental evidence check

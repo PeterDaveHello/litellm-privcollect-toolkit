@@ -17,7 +17,11 @@
     "S9": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
     "S11": "https://github.com/BerriAI/litellm/issues/47826",
     "S12": "https://github.com/BerriAI/litellm/issues/47826#issuecomment-6316601885",
-    "S14": "https://www.wiz.io/blog/litellm-compromised-steals-credentials"
+    "S14": "https://www.wiz.io/blog/litellm-compromised-steals-credentials",
+    "S15": "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain",
+    "S16": "https://socket.dev/blog/litellm-attack-timeline",
+    "S17": "https://github.com/BerriAI/litellm/blob/b69bc36fd4e23b23ea09f4ce63a92b07258f5044/.github/workflows/cache.yml",
+    "S18": "https://github.com/BerriAI/litellm/blob/1a6e3c1e41f1b5c8eeaeeb2ae94bcd95390fa891/.github/workflows/cache.yml"
   },
   "file_hashes": [
     {
@@ -369,6 +373,54 @@
         "S1",
         "S2"
       ]
+    },
+    {
+      "id": "reported-agent-platform-source-ip",
+      "kind": "ip_address",
+      "classification": "correlation_only",
+      "value": "69.48.229.143",
+      "role": "request_source",
+      "scope": "publisher-side",
+      "service": "LiteLLM Agent Platform API",
+      "observed_date": "2026-10-10",
+      "interpretation": "Maintainer-reported source of authenticated Agent Platform API requests on this UTC date; not established here as a downstream PrivCollect upload destination or C2 address.",
+      "sources": ["S15"]
+    },
+    {
+      "id": "reported-release-source-ip",
+      "kind": "ip_address",
+      "classification": "correlation_only",
+      "value": "199.91.221.39",
+      "role": "request_source",
+      "scope": "publisher-side",
+      "repository": "BerriAI/project-releaser",
+      "observed_date": "2026-10-21",
+      "interpretation": "Maintainer-reported source of project-releaser pushes and production gate approval on this UTC date; correlate account and action records, not downstream host infection.",
+      "sources": ["S15"]
+    },
+    {
+      "id": "reported-ci-exfiltration-url-oct10",
+      "kind": "url",
+      "classification": "specific_shared_host_resource",
+      "value": "https://webhook.site/65a42464-3cfa-4b02-a18c-17a6d7b86f37",
+      "role": "exfiltration_destination",
+      "scope": "publisher-side",
+      "repository": "BerriAI/litellm",
+      "observed_date": "2026-10-10",
+      "interpretation": "Destination directly inspected in the fixed workflow source (S17); its October 10 activity is Socket-reported. A successful run does not prove delivery. Correlate this exact CI resource, not all webhook.site traffic or downstream package C2.",
+      "sources": ["S16", "S17"]
+    },
+    {
+      "id": "reported-ci-exfiltration-url-oct12",
+      "kind": "url",
+      "classification": "specific_shared_host_resource",
+      "value": "https://webhook.site/4da03473-a3e7-4dc2-a087-9c564b4208e1",
+      "role": "exfiltration_destination",
+      "scope": "publisher-side",
+      "repository": "BerriAI/litellm",
+      "observed_date": "2026-10-12",
+      "interpretation": "Destination directly inspected in the fixed workflow source (S18); its October 12 activity is Socket-reported. It differs from the October 10 resource. Execution alone does not prove receipt of targeted secrets.",
+      "sources": ["S16", "S18"]
     }
   ],
   "container_images": [
@@ -480,6 +532,78 @@
       "key_bits": 4096,
       "interpretation": "SHA-256 of DER-encoded SubjectPublicKeyInfo for the reported collector public key; not a file hash, private key or attribution proof.",
       "sources": ["S12", "S5"]
+    },
+    {
+      "id": "reported-litellm-exfiltration-branch",
+      "kind": "git_branch",
+      "value": "ci-tmp-a351cc",
+      "repository": "BerriAI/litellm",
+      "scope": "publisher-side",
+      "observed_date": "2026-10-10",
+      "interpretation": "Temporary CI secret-exfiltration branch reported by maintainers and Socket in this repository on this UTC date; a branch name alone is not a malware verdict.",
+      "sources": ["S15", "S16"]
+    },
+    {
+      "id": "reported-litellm-auto-exfiltration-branch",
+      "kind": "git_branch",
+      "value": "ci-tmp-be33e9",
+      "repository": "BerriAI/litellm-auto",
+      "scope": "publisher-side",
+      "observed_date": "2026-10-10",
+      "interpretation": "Maintainer-reported temporary branch used for a second CI secret-exfiltration workflow in this repository on this UTC date; not a downstream host artifact.",
+      "sources": ["S15"]
+    },
+    {
+      "id": "reported-release-workflow-change",
+      "kind": "git_commit",
+      "value": "9cf97e935aeaf791b9c8db224a2bb3ee156134ce",
+      "repository": "BerriAI/project-releaser",
+      "scope": "publisher-side",
+      "observed_date": "2026-10-21",
+      "interpretation": "Maintainer-reported workflow change allowing the fork source; S9 supplies the full Git revision corresponding to S15's 9cf97e9 prefix. Not an independently retrieved commit or a file hash.",
+      "sources": ["S9", "S15"]
+    },
+    {
+      "id": "reported-release-workflow-revert",
+      "kind": "git_commit_prefix",
+      "value": "285fbdc5",
+      "repository": "BerriAI/project-releaser",
+      "scope": "publisher-side",
+      "observed_date": "2026-10-21",
+      "interpretation": "Maintainer-reported attacker revert before the history was force-pushed back; an abbreviated Git revision for audit correlation, not defender remediation or a file hash.",
+      "sources": ["S15"]
+    },
+    {
+      "id": "reported-ci-exfiltration-revision-oct10",
+      "kind": "git_commit",
+      "value": "b69bc36fd4e23b23ea09f4ce63a92b07258f5044",
+      "repository": "BerriAI/litellm",
+      "branch_id": "reported-litellm-exfiltration-branch",
+      "scope": "publisher-side",
+      "observed_date": "2026-10-10",
+      "interpretation": "Workflow source at this revision was retrieved and statically inspected (S17); branch/date and execution evidence are Socket-reported. Not a payload file hash or proof that every targeted secret was delivered.",
+      "sources": ["S16", "S17"]
+    },
+    {
+      "id": "reported-ci-exfiltration-revision-oct12",
+      "kind": "git_commit",
+      "value": "1a6e3c1e41f1b5c8eeaeeb2ae94bcd95390fa891",
+      "repository": "BerriAI/litellm",
+      "branch_id": "reported-litellm-second-exfiltration-branch",
+      "scope": "publisher-side",
+      "observed_date": "2026-10-12",
+      "interpretation": "The six-job workflow source at this revision was retrieved and statically inspected (S18); branch/date and execution evidence are Socket-reported. Not a downstream implant identity or proof of delivery.",
+      "sources": ["S16", "S18"]
+    },
+    {
+      "id": "reported-litellm-second-exfiltration-branch",
+      "kind": "git_branch",
+      "value": "ci-tmp-4d8517",
+      "repository": "BerriAI/litellm",
+      "scope": "publisher-side",
+      "observed_date": "2026-10-12",
+      "interpretation": "Socket-reported temporary branch for the October 12 workflow and retained environment-deployment ref; distinct from the October 10 litellm-auto branch.",
+      "sources": ["S16"]
     }
   ],
   "runtime_indicators": [

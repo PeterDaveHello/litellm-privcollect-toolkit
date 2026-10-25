@@ -11,6 +11,13 @@ March 2026 LiteLLM/TeamPCP incident or claim to identify every subsequent
 payload. The goal is a reference others can independently check and improve,
 not a claim that the project or any host has been certified safe.
 
+The [incident report](docs/incident-report.md#sourcebuild-provenance) incorporates
+the maintainers' October 23 attack-chain findings, which supersede the earlier
+token-theft hypothesis. The [catalog guide](docs/ioc-guide.md#publisher-side-investigation-context)
+separates publisher-side investigation indicators from downstream implant evidence.
+Socket's [CI follow-up](docs/incident-report.md#ci-evidence-and-delivery-limits)
+adds workflow evidence and limits on interpreting successful runs.
+
 ## Start here
 
 | Need | Document or tool |
@@ -166,9 +173,20 @@ the corpus. Its limited zero-match result is not a general false-positive rate.
 
 ## Public research and engine documentation
 
+See the [complete source register](docs/references.md) for source dates,
+corrections and evidence boundaries, including the fixed workflow sources
+and platform documentation used in the response guide.
+
 - [JFrog: LiteLLM hijacked again](https://research.jfrog.com/post/litellm-hijacked-again/)
 - [OpenSourceMalware: wheel analysis and decoded hashes](https://opensourcemalware.com/blog/litellm-1-107-0-pypi-wheel-contains-a-credential-stealer-and-persistent-python-backdoor)
 - [SafeDep: credential stealer and backdoor](https://safedep.io/litellm-pypi-compromise-credential-stealer-backdoor/)
+- [LiteLLM maintainers: October 23 attack-chain investigation](https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain)
+- [Socket: pre-release CI secret-exfiltration timeline](https://socket.dev/blog/litellm-attack-timeline)
+- [AISLE: detection timeline](https://aisle.com/blog/litellm-11070-on-pypi-shipped-a-credential-stealer)
+- [Socket: package and container provenance analysis](https://socket.dev/blog/litellm-compromise)
+- [Upwind: initial compromise report](https://www.upwind.io/feed/litellm-1-107-0-supply-chain-attack-malicious-code-found-in-pypi-package)
+- [Wiz: affected containers and credential-use observations](https://www.wiz.io/blog/litellm-compromised-steals-credentials)
+- [Original GitHub security report and discussion](https://github.com/BerriAI/litellm/issues/47826)
 - [YARA rule documentation](https://yara.readthedocs.io/en/stable/writingrules.html)
 - [YARA command-line documentation](https://yara.readthedocs.io/en/stable/commandline.html)
 - [ClamAV YARA compatibility](https://docs.clamav.net/manual/Signatures/YaraRules.html)
